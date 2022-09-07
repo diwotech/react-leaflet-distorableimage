@@ -1,28 +1,94 @@
-const webpackConfig = require("./webpack.config.js");
+const webpackConfig = require('./webpack.config.js');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   // load npm tasks for grunt-* libs, excluding grunt-cli
-  require("matchdep")
-    .filterDev("{grunt,gruntify}-*")
-    .filter(function (pkg) {
-      return ["grunt-cli"].indexOf(pkg) < 0;
-    })
-    .forEach(grunt.loadNpmTasks);
+  require('matchdep').filterDev('{grunt,gruntify}-*').filter(function(pkg) {
+    return ['grunt-cli'].indexOf(pkg) < 0;
+  }).forEach(grunt.loadNpmTasks);
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON("package.json"),
+    pkg: grunt.file.readJSON('package.json'),
 
     webpack: {
       myConfig: webpackConfig,
     },
+
+    eslint: {
+      src: ['src/**/*.js', 'test/**/*.js'],
+    },
+
+    // Minify SVGs from svg directory, output to svg-min
+    svgmin: {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: 'assets/icons/svg',
+            src: ['*.svg'],
+            dest: 'assets/icons/svg-min/',
+            ext: '.svg',
+          },
+        ],
+      },
+      options: {
+        plugins: [
+          {removeViewBox: false},
+          {removeEmptyAttrs: false},
+          {removeTitle: true}, // "leaflet-toolbar" lets us specify the title attribute later
+          {
+            removeAttrs: {
+              attrs: ['xmlns', 'fill'],
+            },
+          },
+        ],
+      },
+    },
+
+    svg_sprite: {
+      options: {
+        // Task-specific options go here.
+      },
+      dist: {
+        expand: true,
+        cwd: 'assets/icons/svg-min/',
+        src: ['*.svg'],
+        dest: 'assets/icons/',
+        options: {
+          log: 'info',
+          mode: {
+            symbol: {
+              sprite: 'sprite.symbol.svg',
+              example: true,
+            },
+          },
+        },
+      },
+    },
+
+    watch: {
+      options: {
+        livereload: true,
+      },
+      source: {
+        files: ['src/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
+        tasks: ['eslint'],
+      },
+    },
   });
 
-  grunt.registerTask("coverage", "CLI reporter for karma-coverage", function () {
-    var coverageReports = grunt.file.expand("coverage/*/coverage.txt");
+  grunt.registerTask('build', [
+    'eslint',
+    'coverage',
+    'webpack',
+  ]);
+
+  // recompile svg icon sprite
+  grunt.registerTask('icons', ['svgmin', 'svg_sprite']);
+
+  grunt.registerTask('coverage', 'CLI reporter for karma-coverage', function() {
+    var coverageReports = grunt.file.expand('coverage/*/coverage.txt');
     var reports = {};
-    var report;
-    var i;
-    var len;
+    var report; var i; var len;
 
     for (i = 0, len = coverageReports.length; i < len; i++) {
       report = grunt.file.read(coverageReports[i]);

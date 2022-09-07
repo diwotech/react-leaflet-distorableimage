@@ -1,7 +1,12 @@
-import React from "react";
-import ReactDistortableImageOverlayComponent from "./react-distortable-imageoverlay-maplayer";
+/* eslint-disable react/prop-types */
 
-const ReactDistortableImageOverlay = ({ url, mode, actions, selected, suppressToolbar, zIndex, corners, onUpdate }) => {
+import React from 'react';
+import ReactDistortableImageOverlayComponent from './react-distortable-imageoverlay-maplayer';
+
+const ReactDistortableImageOverlay = ({
+  // eslint-disable-next-line react/prop-types
+  url, mode, actions, selected, suppressToolbar, zIndex,
+  corners, onUpdate}) => {
   return (
     <ReactDistortableImageOverlayComponent
       url={url}
