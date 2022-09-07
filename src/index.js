@@ -1,9 +1,9 @@
 import React from "react";
-import MyImageOverlay from "./react-distortable-imageoverlay-maplayer";
+import ReactDistortableImageOverlayComponent from "./react-distortable-imageoverlay-maplayer";
 
 const ReactDistortableImageOverlay = ({ url, mode, actions, selected, suppressToolbar, zIndex, corners, onUpdate }) => {
   return (
-    <MyImageOverlay
+    <ReactDistortableImageOverlayComponent
       url={url}
       mode={mode}
       actions={actions}
@@ -17,3 +17,4 @@ const ReactDistortableImageOverlay = ({ url, mode, actions, selected, suppressTo
 };
 
 export default ReactDistortableImageOverlay;
+

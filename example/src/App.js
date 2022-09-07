@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyDistortableImageOverlay from "./MyImageOverlay";
+import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay";
 import L from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 import Image from "./example.jpg";
@@ -17,7 +17,7 @@ const App = () => {
       >
         <TileLayer noWrap={true} attribution="" url="http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" />
         {onShow ? (
-          <MyDistortableImageOverlay
+          <ReactDistortableImageOverlay
             url={Image}
             bounds={[
               new L.latLng(43.78710550492949, 15.647438805314396),

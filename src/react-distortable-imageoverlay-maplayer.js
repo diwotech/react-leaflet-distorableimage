@@ -10,7 +10,7 @@ import "@diwotech/leaflet-distortableimage/dist/leaflet.distortableimage";
 import "@diwotech/leaflet-distortableimage/dist/leaflet.distortableimage.css";
 import "@diwotech/leaflet-distortableimage/dist/vendor.js";
 
-const MyDistortableImageOverlay = createLayerComponent(
+const ReactDistortableImageOverlayComponent = createLayerComponent(
   function createImageOverlay({ url, corners, mode, selected, actions, suppressToolbar, zIndex }, ctx) {
     const instance = new L.distortableImageOverlay(url, {
       mode,
@@ -30,4 +30,4 @@ const MyDistortableImageOverlay = createLayerComponent(
   }
 );
 
-export default MyDistortableImageOverlay;
+export default ReactDistortableImageOverlayComponent
