@@ -1,6 +1,6 @@
 {
-  "name": "react-leaflet-distortable-imageoverlay",
-  "version": "0.0.0",
+  "name": "@diwotech/react-leaflet-distortable-imageoverlay",
+  "version": "0.0.1",
   "description": "React 17.0.1 Distortable ImageOverlay",
   "license": "MIT",
   "main": "dist/index.js",
