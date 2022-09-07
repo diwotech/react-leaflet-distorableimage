@@ -1,19 +1,19 @@
-import React, {useState } from 'react'
-import MyImageOverlay from './react-distortable-imageoverlay-maplayer';
-import L from 'leaflet';
+import React from "react";
+import MyImageOverlay from "./react-distortable-imageoverlay-maplayer";
 
-const ReactDistortableImageOverlay = () => {
-  // const[corners, setCorners] = useState([L.latLng, L.latLng, L.latLng, L.latLng])
-
-    return (
-      <MyImageOverlay 
-        // url={this.props.url}
-        // opacity={this.props.opacity}
-        // corners={this.state.corners}
-        // editMode={this.props.editMode}
-        // onUpdate={this.onUpdate.bind(this)}
-      />
-    )
-}
+const ReactDistortableImageOverlay = ({ url, mode, actions, selected, suppressToolbar, zIndex, corners, onUpdate }) => {
+  return (
+    <MyImageOverlay
+      url={url}
+      mode={mode}
+      actions={actions}
+      selected={selected}
+      suppressToolbar={suppressToolbar}
+      zIndex={zIndex}
+      corners={corners}
+      onUpdate={onUpdate}
+    />
+  );
+};
 
 export default ReactDistortableImageOverlay;

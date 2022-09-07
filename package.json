@@ -1,19 +1,8 @@
 {
   "name": "react-leaflet-distortable-imageoverlay",
-  "version": "1.0.2",
-  "description": "Distortable ImageOverlay",
-  "author": "Chris Lowe",
+  "version": "0.0.0",
+  "description": "React 17.0.1 Distortable ImageOverlay",
   "license": "MIT",
-  "keywords": [
-    "react",
-    "leaflet",
-    "imageoverlay",
-    "distort",
-    "stretch",
-    "skew",
-    "rotate"
-  ],
-  "repository": "ChrisLowe-Takor/react-leaflet-distortable-imageoverlay",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -21,21 +10,27 @@
     "node": ">=8",
     "npm": ">=5"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diwotech/react-leaflet-distortableimage.git"
+  },
   "scripts": {
-    "build:clean": "del cjs esm types umd",
-    "build:cjs": "babel src --out-dir cjs --extensions .js,.ts,.tsx",
-    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir esm --extensions .js,.ts,.tsx",
     "build:umd": "cross-env BABEL_ENV=rollup NODE_ENV=development rollup -c",
     "build:umd:min": "cross-env BABEL_ENV=rollup NODE_ENV=production rollup -c",
-    "build": "yarn run build:clean && yarn run build:cjs && yarn run build:esm && yarn run build:umd && yarn run build:umd:min",
+    "build": "yarn run build:umd && yarn run build:umd:min",
     "start": "yarn run test && yarn run build",
     "prepare": "yarn run build"
   },
   "peerDependencies": {
+    "@diwotech/leaflet-distortableimage": "^1.0.3",
+    "@react-leaflet/core": "^1.1.1",
+    "leaflet-toolbar": "^0.4.0-alpha.2",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-leaflet": "^3.2.5"
+    "react-leaflet": "^3.2.5",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
@@ -46,52 +41,38 @@
     "@babel/plugin-transform-strict-mode": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/react-hooks": "^7.0.2",
-    "@types/jest": "^27.4.0",
-    "@types/leaflet": "^1.7.8",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/warning": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.9.0",
-    "@typescript-eslint/parser": "^5.9.0",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
-    "del-cli": "^4.0.1",
-    "eslint": "^8.6.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "jest": "^27.4.7",
-    "leaflet": "^1.7.1",
-    "prettier": "^2.5.1",
-    "prettier-eslint": "^13.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-test-renderer": "^17.0.1",
-    "typescript": "^4.5.4",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-replace": "^3.0.1",
     "rollup": "^2.63.0",
-    "rollup-plugin-terser": "^7.0.0"
+    "rollup-plugin-terser": "^7.0.0",
+    "@diwotech/leaflet-distortableimage": "^1.0.3",
+    "@react-leaflet/core": "^1.1.1",
+    "leaflet-toolbar": "^0.4.0-alpha.2",
+    "leaflet": "^1.7.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-leaflet": "^3.2.5",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "files": [
     "dist"
   ],
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not op_mini all"
   ],
-  "dependencies": {
-    "@react-leaflet/core": "^1.1.1"
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
