@@ -1,135 +1,199 @@
-import { MapLayer, withLeaflet } from 'react-leaflet';
-import PropTypes from 'prop-types';
+// import L from "leaflet";
+// import "./lib/leaflet-distortableimage";
+// import "./lib/leaflet-path-transform";
 
-import './lib/leaflet-distortableimage';
-import './lib/leaflet-path-transform';
-import L from 'leaflet';
+// const ReactDistortableImageOverlayMapLayer = ({
+//   url,
+//   corners,
+//   options,
+//   opacity,
+//   editMode,
+//   onUpdate
+// }) => {
+//   let distortableImage = null;
+//   const map = useMap();
 
-type Props = { 
-	url: PropTypes.string,
-	corners: any,
-	opacity: PropTypes.number,
-	editMode: PropTypes.string,     // 'rotate', 'distort', 'translate' or 'scale'
-	onUpdate: (corners) => void;
-} & MapLayerProps;
+//   const createLeafletElement = () => {
+//     distortableImage = new L.DistortableImageOverlay(url, options);
 
-class ReactDistortableImageOverlayMapLayer extends MapLayer<LeafletElement, Props> {
+//     L.DomEvent.on(
+//       distortableImage,
+//       "load",
+//       () => {
+//         distortableImage._image.style.opacity = opacity;
+//         handleEditModeState(editMode);
+//       },
+//       distortableImage
+//     );
 
-	createLeafletElement(props: Props): LeafletElement {
-		this.distortableImage = new L.DistortableImageOverlay(props.url, this.getOptions(props));
-		this.originalCorners = props.corners;
+//     distortableImage.on(
+//       "edit",
+//       update => {
+//         onUpdate(update.sourceTarget._corners);
+//       },
+//       distortableImage
+//     );
 
+//     return distortableImage;
+//   };
 
-		L.DomEvent.on(this.distortableImage, 'load', () => {
-			this.distortableImage._image.style.opacity = this.props.opacity;
-			this.handleEditModeState(props.editMode);
-			
-		}, this.distortableImage);
+//   const updateLeafletElement = (fromProps, toProps) => {
+//     // Keep map ref before removing so we can addLayer when the LeafletElement is recreated
+//     distortableImage.onRemove();
 
-		this.distortableImage.on('edit', (update) => {
-			this.props.onUpdate(update.sourceTarget._corners);
-		}, this.distortableImage);
+//     // The translation state behaves differently from the rotate and distort (uses leaflet-path-transform)
+//     // We hold the translated corners in a local var and wipe it after each translation
+//     if (translateUpdateCorners !== undefined) {
+//       distortableImage = new L.DistortableImageOverlay(toProps.url, {
+//         corners: translateUpdateCorners
+//       });
+//       translateUpdateCorners = undefined;
+//     } else {
+//       distortableImage = new L.DistortableImageOverlay(
+//         toProps.url,
+//         getOptions(toProps)
+//       );
+//     }
+//     2;
 
-		return this.distortableImage;
-	}
+//     // Apply opacity after the image loads
+//     L.DomEvent.on(
+//       distortableImage,
+//       "load",
+//       () => {
+//         distortableImage._image.style.opacity = props.opacity;
+//       },
+//       distortableImage
+//     );
 
-	updateLeafletElement(fromProps, toProps) {
+//     // Re-add the update listener
+//     distortableImage.on(
+//       "edit",
+//       update => {
+//         props.onUpdate(update.sourceTarget._corners);
+//       },
+//       distortableImage
+//     );
 
- 		// Keep map ref before removing so we can addLayer when the LeafletElement is recreated
-		var map = this.distortableImage._map;
-		this.distortableImage.onRemove();
+//     map.addLayer(distortableImage);
 
-		// The translation state behaves differently from the rotate and distort (uses leaflet-path-transform)
-		// We hold the translated corners in a local var and wipe it after each translation
-		if (this.translateUpdateCorners !== undefined) {
-			this.distortableImage = new L.DistortableImageOverlay(toProps.url, { corners: this.translateUpdateCorners });
-			this.translateUpdateCorners = undefined;
-		} else {
-			this.distortableImage = new L.DistortableImageOverlay(toProps.url, this.getOptions(toProps));
-		}2
+//     endTranslate();
+//     handleEditModeState(toProps.editMode);
+//   };
 
-		// Apply opacity after the image loads
-		L.DomEvent.on(this.distortableImage, 'load', () => {
-			this.distortableImage._image.style.opacity = this.props.opacity;
-		}, this.distortableImage);
+//   const handleEditModeState = editMode => {
+//     switch (editMode) {
+//       case "rotate":
+//         distortableImage.editing.enable();
+//         distortableImage.editing._toggleRotateDistort();
+//         distortableImage._image.style.opacity = props.opacity;
+//         break;
 
-		// Re-add the update listener
-		this.distortableImage.on('edit', (update) => {
-			this.props.onUpdate(update.sourceTarget._corners);
-		}, this.distortableImage);
+//       case "distort":
+//         distortableImage.editing.enable();
+//         distortableImage._image.style.opacity = props.opacity;
+//         break;
 
-		map.addLayer(this.distortableImage);
+//       case "translate":
+//         startTranslate();
+//         break;
 
-		this.endTranslate();
-		this.handleEditModeState(toProps.editMode);
-	}
+//       case "scale":
+//         distortableImage.editing.enable();
+//         distortableImage.editing._toggleScale();
+//         distortableImage._image.style.opacity = props.opacity;
+//         break;
 
-	handleEditModeState(editMode) {
-		switch (editMode) {
-			case 'rotate':
-				this.distortableImage.editing.enable();
-				this.distortableImage.editing._toggleRotateDistort();
-				this.distortableImage._image.style.opacity = this.props.opacity;
-				break;
+//       default:
+//         distortableImage.editing.disable();
+//         distortableImage._image.style.opacity = props.opacity;
+//     }
+//   };
 
-			case 'distort':
-				this.distortableImage.editing.enable();
-				this.distortableImage._image.style.opacity = this.props.opacity;
-				break;
+//   const startTranslate = () => {
+//     const corners = distortableImage.getCorners();
 
-			case 'translate':
-				this.startTranslate();
-				break;
+//     // DistortableImageOverlay corners have different ordering from L.Polygon bounds
+//     var polygonDragCorners = [corners[0], corners[1], corners[3], corners[2]];
 
-			case 'scale':
-				this.distortableImage.editing.enable();
-				this.distortableImage.editing._toggleScale();
-				this.distortableImage._image.style.opacity = this.props.opacity;
-				break;
+//     translatePolygon = new L.Polygon(polygonDragCorners, {
+//       draggable: true,
+//       transform: true,
+//       color: "red",
+//       fill: true
+//     });
+//     distortableImage._image.style.opacity = opacity;
+//     translatePolygon.transform.enable();
 
-			default:
-				this.distortableImage.editing.disable();
-				this.distortableImage._image.style.opacity = this.props.opacity;
-		}
-	}
+//     translatePolygon.on("dragend", event => {
+//       const latlngs = event.target.getLatLngs()[0];
+//       const newImageCorners = [latlngs[0], latlngs[1], latlngs[3], latlngs[2]];
 
-	startTranslate() {
-		var map = this.distortableImage._map;
-		var corners = this.distortableImage.getCorners();
+//       // Without this timeout it crashes trying to access the map ref of a removed element.
+//       // Not sure why..
+//       setTimeout(() => {
+//         onUpdate(newImageCorners);
+//       }, 10);
+//       map.removeLayer(distortableImage);
 
-		// DistortableImageOverlay corners have different ordering from L.Polygon bounds
-		var polygonDragCorners = [ corners[0], corners[1], corners[3], corners[2] ]
-	
-		this.translatePolygon = new L.Polygon(polygonDragCorners, { draggable: true, transform: true, color: 'red', fill: true });
-		this.distortableImage._image.style.opacity = this.props.opacity;
-		this.translatePolygon.transform.enable();
+//       distortableImage = new L.DistortableImageOverlay(url, {
+//         corners: newImageCorners
+//       });
+//       distortableImage.addTo(map);
+//       distortableImage._image.style.opacity = opacity;
 
-		this.translatePolygon.on('dragend', (event) => {
-	
-			var latlngs = event.target.getLatLngs()[0];
-			var newImageCorners = [latlngs[0], latlngs[1], latlngs[3], latlngs[2]];
+//       translateUpdateCorners = newImageCorners;
+//     });
 
-			// Without this timeout it crashes trying to access the map ref of a removed element.
-			// Not sure why..
-			setTimeout( () => { this.props.onUpdate(newImageCorners) }, 10);
-			map.removeLayer(this.distortableImage);
+//     translatePolygon.addTo(map);
+//   };
 
-			this.distortableImage = new L.DistortableImageOverlay(this.props.url, { corners: newImageCorners });
-			this.distortableImage.addTo(map);
-			this.distortableImage._image.style.opacity = this.props.opacity;
+//   const endTranslate = () => {
+//     if (translatePolygon) {
+//       map.removeLayer(translatePolygon);
+//     }
+//   };
 
-			this.translateUpdateCorners = newImageCorners;
-		})
+//   return null;
+// };
 
-		this.translatePolygon.addTo(map);
-	}
+// export default ReactDistortableImageOverlayMapLayer;
 
-	endTranslate() {
-		var map = this.distortableImage._map;
-		if (this.translatePolygon) {
-			map.removeLayer(this.translatePolygon);
-		}
-	}
-}
+// const ReactDistortableImageOverlayMapLayer = ({
+//   url,
+//   corners,
+//   options,
+//   opacity,
+//   editMode,
+//   onUpdate
+// }) => {
 
-export default withLeaflet(ReactDistortableImageOverlayMapLayer);
+// };
+
+// export default ReactDistortableImageOverlayMapLayer;
+
+import {
+  createElementObject,
+  createLayerComponent,
+  extendContext,
+  updateMediaOverlay,
+} from '@react-leaflet/core'
+import { ImageOverlay as LeafletImageOverlay } from 'leaflet'
+
+const MyImageOverlay = createLayerComponent(
+  function createImageOveraly({ bounds, url, ...options }, ctx) {
+    const overlay = new LeafletImageOverlay(url, bounds, options);
+    return createElementObject(
+      overlay,
+      extendContext(ctx, { overlayContainer: overlay })
+    );
+  },
+  function updateImageOverlay(overlay, props, prevProps) {
+    updateMediaOverlay(overlay, props, prevProps);
+    if (props.url !== prevProps.url) {
+      overlay.setUrl(props.url);
+    }
+  }
+);
+
+export default MyImageOverlay;

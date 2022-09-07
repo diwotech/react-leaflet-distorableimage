@@ -1,36 +1,48 @@
-import babel from 'rollup-plugin-babel'
-import commonjs from 'rollup-plugin-commonjs'
-import external from 'rollup-plugin-peer-deps-external'
-import postcss from 'rollup-plugin-postcss'
-import resolve from 'rollup-plugin-node-resolve'
-import url from 'rollup-plugin-url'
+import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { terser } from 'rollup-plugin-terser'
 
-import pkg from './package.json'
+const env = process.env.NODE_ENV
+const extensions = ['.js', '.ts', '.tsx']
 
-export default {
+const config = {
   input: 'src/index.js',
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: true
+  output: {
+    file:
+      env === 'production'
+        ? 'umd/react-leaflet.min.js'
+        : 'umd/react-leaflet.js',
+    format: 'umd',
+    globals: {
+      leaflet: 'L',
+      react: 'React',
+      'react-dom': 'ReactDOM',
     },
-    {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: true
-    }
-  ],
+    name: 'ReactLeaflet',
+  },
+  external: ['leaflet', 'react', 'react-dom'],
   plugins: [
-    external(),
-    postcss({
-      modules: true
+    nodeResolve({
+      browser: true,
+      extensions,
     }),
-    url(),
+    commonjs(),
     babel({
-      exclude: 'node_modules/**'
+      exclude: '**/node_modules/**',
+      extensions,
+      babelHelpers: 'bundled',
     }),
-    resolve(),
-    commonjs()
-  ]
+    replace({
+      preventAssignment: true,
+      'process.env.NODE_ENV': JSON.stringify(env),
+    }),
+  ],
 }
+
+if (env === 'production') {
+  config.plugins.push(terser())
+}
+
+export default config

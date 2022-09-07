@@ -181,27 +181,35 @@ import L, { LatLng } from "leaflet";
 // }
 
 import React, { Component } from "react";
-import { Map, TileLayer, ImageOverlay } from "react-leaflet";
+import { MapContainer, TileLayer, ImageOverlay } from "react-leaflet";
 import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay";
-import Image from './example.jpg'
+import Image from "./example.jpg";
 export default class App extends Component {
+  state = {
+    onShow: true
+  };
   onWellKnownTextUpdated(wkt) {
-  	console.log(wkt);
+    console.log(wkt);
   }
 
   onCornersUpdated(corners) {
-  	console.log(corners);
+    console.log(corners);
   }
+  onClick = () => {
+    this.setState({onShow: !this.state.onShow});
+  };
 
   render() {
     return (
-      <Map bounds={[[43.786293, 15.64765, 0], [43.686293, 15.54765, 0]]}>
-        <TileLayer
-          noWrap={true}
-          attribution=""
-          url="http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-        />
-        {/* <ImageOverlay
+      <div>
+        <button onClick={this.onClick}> Click </button>
+        <MapContainer bounds={[[43.786293, 15.64765, 0], [43.686293, 15.54765, 0]]}>
+          <TileLayer
+            noWrap={true}
+            attribution=""
+            url="http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+          />
+          {/* <ImageOverlay
         url={Image}
         bounds={[
           new L.latLng(43.78710550492949, 15.647438805314396),
@@ -210,19 +218,22 @@ export default class App extends Component {
           new L.latLng(43.78098644922989, 15.655914504316957)
         ]}
         /> */}
-        <ReactDistortableImageOverlay
-          url={Image}
-          editMode="rotate"
-          onCornersUpdated={this.onCornersUpdated.bind(this)}
-          onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
-          corners={[
-            new L.latLng(43.78710550492949, 15.647438805314396),
-            new L.latLng(43.78710550492949, 15.655914504316957),
-            new L.latLng(43.78098644922989, 15.647438805314396),
-            new L.latLng(43.78098644922989, 15.655914504316957)
-          ]}
-        />
-      </Map>
+          {this.state.onShow ? (
+            <ReactDistortableImageOverlay
+              url={Image}
+              editMode="rotate"
+              onCornersUpdated={this.onCornersUpdated.bind(this)}
+              onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
+              corners={[
+                new L.latLng(43.78710550492949, 15.647438805314396),
+                new L.latLng(43.78710550492949, 15.655914504316957),
+                new L.latLng(43.78098644922989, 15.647438805314396),
+                new L.latLng(43.78098644922989, 15.655914504316957)
+              ]}
+            />
+          ) : null}
+        </MapContainer>
+      </div>
     );
   }
 }
