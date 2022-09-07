@@ -4,13 +4,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "react-leaflet-distortable-imageoverlay": "file:.."
+    "react-leaflet-distortableimage": "file:.."
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
-  },
-  "devDependencies": {
-    "gh-pages": "^1.2.0"
   }
 }

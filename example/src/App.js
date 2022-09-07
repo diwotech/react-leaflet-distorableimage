@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay";
+import ReactDistortableImageOverlay from "react-leaflet-distortableimage";
 import L from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 import Image from "./example.jpg";
