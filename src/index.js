@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import React from 'react';
 import ReactDistortableImageOverlayComponent from './react-distortable-imageoverlay-maplayer';
 
@@ -22,4 +21,3 @@ const ReactDistortableImageOverlay = ({
 };
 
 export default ReactDistortableImageOverlay;
-

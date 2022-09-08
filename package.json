@@ -1,6 +1,6 @@
 {
   "name": "@diwotech/react-leaflet-distortable-imageoverlay",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "React 17.0.1 Distortable ImageOverlay",
   "engines": {
     "node": ">=10.0.0"
