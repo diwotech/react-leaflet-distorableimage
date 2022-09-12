@@ -1,0 +1,1 @@
+export { ReactLeafletDistortableImage } from './component';

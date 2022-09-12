@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import ReactDistortableImageOverlay from "react-leaflet-distortableimage";
-import L from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
-import Image from "./example.jpg";
-
+import React, {useState} from 'react';
+import {ReactDistortableImageOverlay} from 'react-leaflet-distortableimage';
+// import L from 'leaflet';
+import {MapContainer, TileLayer} from 'react-leaflet';
+// import Image from './example.jpg';
 const App = () => {
-  const [onShow, setOnShow] = useState(true);
+  // const [onShow, setOnShow] = useState(true);
+  console.log('ReactDistortableImageOverlay', ReactDistortableImageOverlay);
   return (
     <div>
       <button onClick={() => setOnShow(!onShow)}> Click </button>
@@ -16,7 +16,7 @@ const App = () => {
         ]}
       >
         <TileLayer noWrap={true} attribution="" url="http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}" />
-        {onShow ? (
+        {/* {onShow ? ( */}
           <ReactDistortableImageOverlay
             url={Image}
             bounds={[
@@ -25,12 +25,12 @@ const App = () => {
               new L.latLng(43.78098644922989, 15.647438805314396),
               new L.latLng(43.78098644922989, 15.655914504316957),
             ]}
-            mode={"freeRotate"}
+            mode={'freeRotate'}
             actions={[L.RotateAction, L.ScaleAction, L.OpacityAction]}
             selected={true}
             suppressToolbar={false}
           />
-        ) : null}
+        {/* ) : null} */}
       </MapContainer>
     </div>
   );

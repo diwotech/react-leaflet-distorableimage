@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "react-leaflet-distortableimage": "file:.."
+    "react-leaflet-distortableimage": "file:..",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

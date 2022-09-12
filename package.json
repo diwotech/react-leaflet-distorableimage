@@ -2,41 +2,21 @@
   "name": "@diwotech/react-leaflet-distortable-imageoverlay",
   "version": "0.0.3",
   "description": "React 17.0.1 Distortable ImageOverlay",
-  "engines": {
-    "node": ">=10.0.0"
-  },
   "scripts": {
-    "setup": "npm i && npm run build",
-    "watch:dev": "webpack --watch",
-    "serve:dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "test": "grunt test",
-    "watch:test": "grunt karma:development:start && grunt watch",
-    "build": "cross-env NODE_ENV=production grunt build",
-    "linter": "grunt eslint"
+    "rollup": "rollup -c"
   },
-  "main": "dist/react.leaflet.distortableimage.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/diwotech/react-leaflet-distortableimage.git"
   },
-  "directories": {
-    "distribution": "./dist",
-    "source": "./src",
-    "tests": "./test"
-  },
   "dependencies": {
     "@diwotech/leaflet-distortableimage": "^1.0.3",
     "@react-leaflet/core": "^1.1.1",
-    "exif-js": "^2.3.0",
-    "glfx": "0.0.4",
     "leaflet": "^1.7.1",
     "leaflet-toolbar": "^0.4.0-alpha.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-leaflet": "^3.2.5",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "webgl-distort": "0.0.2"
+    "react-leaflet": "^3.2.5"
   },
   "peerDependencies": {
     "@diwotech/leaflet-distortableimage": "^1.0.3",
@@ -45,54 +25,18 @@
     "leaflet-toolbar": "^0.4.0-alpha.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-leaflet": "^3.2.5",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-leaflet": "^3.2.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "acorn": "^8.7.1",
-    "babel-loader": "^8.1.0",
-    "chai": "^4.2.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "cross-env": "^7.0.2",
-    "eslint": "^8.16.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-react": "^7.31.7",
-    "glob": "^8.0.3",
-    "grunt": "^1.1.0",
-    "grunt-cli": "^1.3.2",
-    "grunt-contrib-concat": "^2.1.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-karma": "^4.0.0",
-    "grunt-svg-sprite": "^1.5.0",
-    "grunt-svgmin": "^6.0.0",
-    "grunt-webpack": "^5.0.0",
-    "gruntify-eslint": "^5.0.0",
-    "husky": "^8.0.1",
-    "karma": "^6.3.14",
-    "karma-babel-preprocessor": "^8.0.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-coverage": "^2.0.3",
-    "karma-mocha": "^2.0.1",
-    "karma-mocha-reporter": "^2.2.5",
-    "karma-sinon": "^1.0.5",
-    "leaflet": "1.x",
-    "matchdep": "^2.0.0",
-    "mocha": "^10.0.0",
-    "sinon": "^14.0.0",
-    "uglify-js": "^3.7.4",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0",
-    "webpack-merge-and-include-globally": "^2.1.24"
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.0.1",
+    "rollup": "^2.79.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run linter && npm run build && git add dist/leaflet.distortableimage.js"
-    }
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "browserslist": [
     ">0.2%",
     "not dead",
