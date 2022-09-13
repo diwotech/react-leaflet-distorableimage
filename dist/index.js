@@ -44456,28 +44456,25 @@ var vendor = {exports: {}};
 // import 'leaflet-toolbar/dist/leaflet.toolbar.css';
 // import '@diwotech/leaflet-distortableimage/dist/leaflet.distortableimage.css';
 
-const ReactLeafletDistortableImage = () => {
-  return createLayerComponent(
-      function createImageOverlay({
-        url, corners, mode, selected, actions, suppressToolbar, zIndex}, ctx) {
-        const instance = new L$1.distortableImageOverlay(url, {
-          mode,
-          actions,
-          selected,
-          suppressToolbar,
-          zIndex,
-          corners,
-        });
-        return {instance, context: {...ctx, overlayContainer: instance}};
-      },
-      function updateImageOverlay(overlay, props, prevProps) {
-        updateMediaOverlay(overlay, props, prevProps);
-        if (props.url !== prevProps.url) {
-          overlay.setUrl(props.url);
-        }
-      },
-  );
-};
+const ReactLeafletDistortableImage = createLayerComponent(
+  function createImageOverlay({ url, corners, mode, selected, actions, suppressToolbar, zIndex }, ctx) {
+    const instance = new L$1.distortableImageOverlay(url, {
+      mode,
+      actions,
+      selected,
+      suppressToolbar,
+      zIndex,
+      corners,
+    });
+    return { instance, context: { ...ctx, overlayContainer: instance } };
+  },
+  function updateImageOverlay(overlay, props, prevProps) {
+    updateMediaOverlay(overlay, props, prevProps);
+    if (props.url !== prevProps.url) {
+      overlay.setUrl(props.url);
+    }
+  }
+);
 
 export { ReactLeafletDistortableImage };
 //# sourceMappingURL=index.js.map
