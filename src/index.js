@@ -1,1 +1,1 @@
-export * from './component';
+export { ReactLeafletDistortableImage } from "./component";
