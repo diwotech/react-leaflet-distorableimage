@@ -13,12 +13,12 @@
   },
   "peerDependencies": {
     "@diwotech/leaflet-distortableimage": "^1.0.3",
-    "@react-leaflet/core": "^1.1.1",
-    "leaflet": "^1.7.1",
-    "leaflet-toolbar": "^0.4.0-alpha.2",
+    "@react-leaflet/core": "1.1.1",
+    "react-leaflet": "3.2.5",
+    "leaflet": "1.7.1",
+    "leaflet-toolbar": "0.4.0-alpha.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-leaflet": "^3.2.5"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
