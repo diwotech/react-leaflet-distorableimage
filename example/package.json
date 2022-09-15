@@ -1,14 +1,23 @@
 {
-  "name": "react-leaflet-distortable-imageoverlay-example",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "test-react-leaflet",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react-leaflet-distortableimage": "file:..",
+    "@diwotech/leaflet-distortableimage": "^1.0.3",
+    "@diwotech/testlib": "^0.0.5",
+    "leaflet": "1.7.1",
+    "leaflet-toolbar": "0.4.0-alpha.2",
+    "react-leaflet": "3.2.5",
+    "leaflet-draw": "^1.0.4",
     "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }
