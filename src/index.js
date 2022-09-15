@@ -1,1 +1,3 @@
-export { ReactLeafletDistortableImage } from "./component";
+import ReactLeafletDistortableImage from "./component";
+
+export { ReactLeafletDistortableImage };

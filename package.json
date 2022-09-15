@@ -1,33 +1,38 @@
 {
   "name": "@diwotech/react-leaflet-distortable-imageoverlay",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React 17.0.1 Distortable ImageOverlay",
-  "scripts": {
-    "rollup": "rollup -c"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/diwotech/react-leaflet-distortableimage.git"
   },
+  "devDependencies": {
+    "@babel/core": "^7.19.0",
+    "@babel/preset-react": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "rollup": "^2.79.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  },
   "dependencies": {
+    "@diwotech/leaflet-distortableimage": "^1.0.3",
+    "@react-leaflet/core": "1.1.1",
+    "leaflet": "1.7.1",
+    "leaflet-toolbar": "0.4.0-alpha.2",
+    "leaflet-draw": "^1.0.4"
   },
   "peerDependencies": {
     "@diwotech/leaflet-distortableimage": "^1.0.3",
-    "@react-leaflet/core": "1.1.1",
-    "react-leaflet": "3.2.5",
     "leaflet": "1.7.1",
     "leaflet-toolbar": "0.4.0-alpha.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-node-resolve": "^14.0.1",
-    "rollup": "^2.79.0"
+    "leaflet-draw": "^1.0.4"
   },
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "browserslist": [
     ">0.2%",
