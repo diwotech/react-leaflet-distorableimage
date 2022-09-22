@@ -16,36 +16,33 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var L__default = /*#__PURE__*/_interopDefaultLegacy(L);
 
-const ReactLeafletDistortableImage = core.createLayerComponent(function createImageOverlay({
-  url,
-  corners,
-  mode,
-  selected,
-  actions,
-  suppressToolbar,
-  zIndex
-}, ctx) {
-  const instance = new L__default["default"].distortableImageOverlay(url, {
-    mode,
-    actions,
-    selected,
-    suppressToolbar,
-    zIndex,
-    corners
+function createDistortableImageOverlay(props, context) {
+  const img = new L__default["default"].distortableImageOverlay(props.url, {
+    mode: props.mode,
+    actions: props.actions,
+    selected: props.selected,
+    suppressToolbar: props.suppressToolbar,
+    zIndex: props.zIndex,
+    corners: props.corners
+  });
+  img.on("update", () => {
+    return props.onUpdate(img._corners);
   });
   return {
-    instance,
-    context: { ...ctx,
-      overlayContainer: instance
-    }
+    instance: img,
+    context
   };
-}, function updateImageOverlay(overlay, props, prevProps) {
+}
+
+function updateDistortableImageOverlay(overlay, props, prevProps) {
   core.updateMediaOverlay(overlay, props, prevProps);
 
   if (props.url !== prevProps.url) {
     overlay.setUrl(props.url);
   }
-});
+}
+
+const ReactLeafletDistortableImage = core.createLayerComponent(createDistortableImageOverlay, updateDistortableImageOverlay);
 
 exports.ReactLeafletDistortableImage = ReactLeafletDistortableImage;
 //# sourceMappingURL=index.js.map

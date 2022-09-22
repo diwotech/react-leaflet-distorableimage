@@ -9,24 +9,32 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-toolbar/dist/leaflet.toolbar.css";
 import "@diwotech/leaflet-distortableimage/dist/leaflet.distortableimage.css";
 
-const ReactLeafletDistortableImage = createLayerComponent(
-  function createImageOverlay({ url, corners, mode, selected, actions, suppressToolbar, zIndex }, ctx) {
-    const instance = new L.distortableImageOverlay(url, {
-      mode,
-      actions,
-      selected,
-      suppressToolbar,
-      zIndex,
-      corners,
-    });
-    return { instance, context: { ...ctx, overlayContainer: instance } };
-  },
-  function updateImageOverlay(overlay, props, prevProps) {
-    updateMediaOverlay(overlay, props, prevProps);
-    if (props.url !== prevProps.url) {
-      overlay.setUrl(props.url);
-    }
-  }
-);
+function createDistortableImageOverlay(props, context) {
+  const img = new L.distortableImageOverlay(props.url, {
+    mode: props.mode,
+    actions: props.actions,
+    selected: props.selected,
+    suppressToolbar: props.suppressToolbar,
+    zIndex: props.zIndex,
+    corners: props.corners,
+  });
 
+  img.on("update", () => {
+    return props.onUpdate(img._corners);
+  });
+
+  return {
+    instance: img,
+    context,
+  };
+}
+
+function updateDistortableImageOverlay(overlay, props, prevProps) {
+  updateMediaOverlay(overlay, props, prevProps);
+  if (props.url !== prevProps.url) {
+    overlay.setUrl(props.url);
+  }
+}
+
+const ReactLeafletDistortableImage = createLayerComponent(createDistortableImageOverlay, updateDistortableImageOverlay);
 export default ReactLeafletDistortableImage;
